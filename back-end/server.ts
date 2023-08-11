@@ -1,5 +1,5 @@
 import express from "express";
-import mongoose, { connect } from "mongoose";
+import { connect, connection } from "mongoose";
 import "dotenv/config";
 import routes from "./routes/routes";
 
@@ -12,15 +12,20 @@ app.use(express.urlencoded({ extended: false }));
 connect(
   `mongodb+srv://${process.env.DB_NAME}:${process.env.DB_PASSWORD}@${process.env.DB_CLASTER_NAME}.lghnr7n.mongodb.net/?retryWrites=true&w=majority`,
 );
-
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error: "));
-db.once("open", function () {
-  console.log("Connected successfully");
-});
+try {
+  connection.once("open", function () {
+    console.log("Connected successfully");
+  });
+} catch (error) {
+  console.log(error);
+}
 
 app.use("/auth/", routes);
 
-app.listen(PORT, () => {
-  console.log(`Listening port: ${PORT}`);
-});
+try {
+  app.listen(PORT, () => {
+    console.log(`Listening port: ${PORT}`);
+  });
+} catch (error) {
+  console.log(error);
+}
