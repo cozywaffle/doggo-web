@@ -12,3 +12,8 @@ export const registerValidation = [
   }),
   body("avatarUrl", "There should be a link!").optional().isURL(),
 ];
+
+export const loginValidation = [
+  body("login").isLength({ min: 5 }),
+  body("password").isLength({ min: 8 }),
+];
