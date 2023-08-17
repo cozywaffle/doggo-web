@@ -1,14 +1,18 @@
 import express from "express";
-import jwt from "jsonwebtoken";
+import jwt, { Secret } from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import UserModel from "../models/user/User";
 import { UserInterface } from "../models/user/types";
 import { Request, Response } from "express";
 import "dotenv/config";
-import secret_key from "../config";
 
 import { registerValidation, loginValidation } from "../validations/auth";
 import validErrHandler from "../utils/validErrHandler";
+import checkAuth from "../utils/authChecker";
+
+interface CustomRequest extends Request {
+  userId?: string;
+}
 
 const router = express.Router();
 
@@ -36,16 +40,16 @@ router.post(
         {
           _id: user._id,
         },
-        process.env.SECRET || secret_key,
+        process.env.SECRET as Secret,
         {
           expiresIn: "31d",
         },
       );
 
-      const { passwordHash, ...REST } = user._doc;
+      const { passwordHash, ...data } = user._doc;
 
       return res.json({
-        REST,
+        data,
         token,
       });
     } catch (error) {
@@ -84,16 +88,16 @@ router.post(
         {
           _id: user._id,
         },
-        process.env.SECRET || secret_key,
+        process.env.SECRET as Secret,
         {
           expiresIn: "31d",
         },
       );
 
-      const { passwordHash, ...REST } = user._doc;
+      const { passwordHash, ...data } = user._doc;
 
       return res.json({
-        REST,
+        data,
         token,
       });
     } catch (error) {
@@ -103,5 +107,24 @@ router.post(
     }
   },
 );
+
+router.get("/me", checkAuth, async (req: CustomRequest, res: Response) => {
+  try {
+    const user = await UserModel.findById(req.userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User is not found" });
+    }
+
+    const { passwordHash, ...userData } = user._doc;
+
+    return res.json({
+      userData,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Access denied." });
+  }
+});
 
 export default router;
