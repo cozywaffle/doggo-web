@@ -13,6 +13,7 @@
     "useUnknownInCatchVariables": false,
     "inlineSourceMap": true
   },
+  "exclude": ["node_modules"],
   "ts-node": {
     "esm": true
   },

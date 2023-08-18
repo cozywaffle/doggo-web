@@ -1,8 +1,8 @@
 import express from "express";
 import jwt, { Secret } from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import UserModel from "../models/user/User";
-import { UserInterface } from "../models/user/types";
+import UserModel from "../models/User/User";
+import { UserInterface } from "../models/User/types";
 import { Request, Response } from "express";
 import "dotenv/config";
 
@@ -116,7 +116,7 @@ router.get("/me", checkAuth, async (req: CustomRequest, res: Response) => {
       return res.status(404).json({ message: "User is not found" });
     }
 
-    const { passwordHash, ...userData } = user._doc;
+    const userData = user;
 
     return res.json({
       userData,

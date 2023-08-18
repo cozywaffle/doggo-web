@@ -5,16 +5,16 @@ const UserSchema = new mongoose.Schema<UserInterface>(
   {
     username: {
       type: String,
-      require: true,
+      required: true,
     },
     login: {
       type: String,
-      require: true,
+      required: true,
       unique: true,
     },
     passwordHash: {
       type: String,
-      require: true,
+      required: true,
     },
     avatarUrl: String,
   },

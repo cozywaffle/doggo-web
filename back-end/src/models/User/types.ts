@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 export interface UserInterface {
   username: string;
   login: string;

@@ -3,6 +3,7 @@ import cors from "cors";
 import { connect } from "mongoose";
 import "dotenv/config";
 import auth from "./routes/auth";
+import post from "./routes/post";
 
 const app = express();
 const PORT: number = Number(process.env.PORT) || 3001;
@@ -19,6 +20,7 @@ connect(
   .catch(err => console.log(err));
 
 app.use("/auth/", auth);
+app.use("/posts/", post);
 
 app
   .listen(PORT, () => {
