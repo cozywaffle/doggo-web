@@ -2,6 +2,7 @@ import express from "express";
 import jwt, { Secret } from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import UserModel from "../models/User/User";
+import PostModel from "../models/Post/Post";
 import { UserInterface } from "../models/User/types";
 import { Request, Response } from "express";
 import "dotenv/config";
@@ -116,10 +117,13 @@ router.get("/me", checkAuth, async (req: CustomRequest, res: Response) => {
       return res.status(404).json({ message: "User is not found" });
     }
 
+    const posts = await PostModel.find({ user });
+
     const userData = user;
 
     return res.json({
       userData,
+      posts,
     });
   } catch (error) {
     console.log(error);
