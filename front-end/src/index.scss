@@ -125,6 +125,16 @@
     border-collapse: collapse;
     border-spacing: 0;
   }
+  button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+  }
 
   font-family: "Ubuntu Mono", monospace;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1250px;
 }

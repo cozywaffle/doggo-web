@@ -1,23 +1,37 @@
-import shiba from "./img/shiba.png";
+import React from "react";
+import paw from "./img/paw.svg";
 import styles from "./NavBar.module.scss";
 
-const NavBar = () => {
+const NavBar: React.FC = () => {
+  const isAuth = true;
+
   return (
-    <nav className={styles.nav}>
-      <div className={styles.logo}>
-        <h1>SHIBA</h1>
-        <img src={shiba} alt="Shiba" />
-      </div>
+    <div className="container">
+      <nav className={styles.nav}>
+        <div className={styles.logo}>
+          <h1>SHIBA</h1>
+          <img src={paw} alt="Paw logo" />
+        </div>
 
-      <button className="add">
-        <h2>Add Post</h2>
-      </button>
+        <div className={styles.nav__buttons}>
+          {isAuth && <button className={styles.add}>Add Post</button>}
 
-      <ul className={styles.login}>
-        <li>Log in</li>
-        <li>Sign in</li>
-      </ul>
-    </nav>
+          <div className={styles.login}>
+            {isAuth ? (
+              <>
+                <button>Profile</button>
+                <button className={styles.logout}>Log out</button>
+              </>
+            ) : (
+              <>
+                <button>Log in</button>
+                <button>Sign in</button>
+              </>
+            )}
+          </div>
+        </div>
+      </nav>
+    </div>
   );
 };
 
