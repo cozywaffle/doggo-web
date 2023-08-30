@@ -1,10 +1,11 @@
+import React from "react";
 import styles from "./main.module.scss";
 
-const Main = () => {
+const Main: React.FC = () => {
   return (
-    <header className={styles.header}>
-      <h1>Paw BLOG</h1>
-    </header>
+    <>
+      <header className={styles.header}>MAIN</header>
+    </>
   );
 };
 

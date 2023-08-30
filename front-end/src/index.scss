@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap");
 
+body,
+html {
+  height: 100%;
+}
+
 * {
   html,
   body,
@@ -137,4 +142,8 @@
 .container {
   margin: 0 auto;
   max-width: 1250px;
+}
+
+.split {
+  display: flex;
 }
