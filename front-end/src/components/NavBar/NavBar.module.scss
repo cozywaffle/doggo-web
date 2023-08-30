@@ -1,0 +1,23 @@
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .logo {
+    display: flex;
+    column-gap: 5px;
+    letter-spacing: 2px;
+    align-items: center;
+    font-size: 30px;
+    font-weight: 900;
+    color: #ccbca2;
+
+    img {
+      width: 50px;
+      border-radius: 40%;
+    }
+  }
+
+  .add {
+  }
+}
