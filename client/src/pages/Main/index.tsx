@@ -1,11 +1,12 @@
 import React from "react";
 import styles from "./main.module.scss";
+import Post from "../../components/Post";
 
 const Main: React.FC = () => {
   return (
-    <>
-      <header className={styles.header}>MAIN</header>
-    </>
+    <main className={styles.main}>
+      <Post />
+    </main>
   );
 };
 

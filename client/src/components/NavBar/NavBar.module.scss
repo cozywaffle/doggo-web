@@ -75,10 +75,10 @@
 
       &:hover {
         transform: translateY(2px);
-        background-color: rgba(172, 172, 172, 0.2);
+        filter: drop-shadow(0 0 5px rgb(0, 255, 0));
 
         svg {
-          fill: #fff;
+          fill: rgba(0, 255, 0, 0.3);
         }
       }
 
