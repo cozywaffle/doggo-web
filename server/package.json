@@ -2,10 +2,11 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
-  "main": "./src/index.ts",
+  "main": "./src/app.ts",
   "scripts": {
-    "start": "node --experimental-specifier-resolution=node --loader ts-node/esm ./src/index.ts"
+    "start": "node dist/app.js",
+    "build": "tsc -p .",
+    "dev": "nodemon ./src/app.ts"
   },
   "keywords": [],
   "author": "Waffle",
