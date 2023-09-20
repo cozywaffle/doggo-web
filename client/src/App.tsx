@@ -1,14 +1,19 @@
 import { FC } from "react";
-import MainPage from "./pages/mainPage/MainPage";
-import Header from "./components/header/Header";
-import Login from "./pages/login/Login";
+import Home from "./pages/Home";
+import NavBar from "./components/NavBar";
+import { Route, Routes } from "react-router";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 const App: FC = () => {
   return (
     <>
-      <Header />
-      {/* <MainPage /> */}
-      <Login />
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
     </>
   );
 };
