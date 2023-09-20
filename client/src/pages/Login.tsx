@@ -1,18 +1,38 @@
 import { FC } from "react";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { AppDispatch } from "../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser, selectIsAuth } from "../redux/slices/auth.slice";
+
+type FormValues = {
+  login: string;
+  password: string;
+};
 
 const Login: FC = () => {
-  const { register, handleSubmit } = useForm();
-  const [data, setData] = useState("");
+  const { register, handleSubmit } = useForm<FormValues>();
+  const isAuth = useSelector(selectIsAuth);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const submitHandler = async (values: FormValues) => {
+    const data = await dispatch(loginUser(values));
+
+    console.log(data);
+
+    window.localStorage.setItem("token", data.payload.token);
+  };
+
+  if (isAuth) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <section className="text-white flex flex-col gap-y-4 justify-center items-center h-[80vh]">
       <h1 className="text-2xl font-light">Log into your account</h1>
       <form
         className="flex flex-col gap-y-6 justify-center items-center"
-        onSubmit={handleSubmit(data => setData(JSON.stringify(data)))}>
+        onSubmit={handleSubmit(submitHandler)}>
         <input
           className="text-lg font-light bg-transparent rounded-md outline-none shadow-md shadow-white py-1 px-2 transition-all hover:shadow-black hover:shadow-md hover:translate-y-[2px] focus:shadow-black focus:shadow-md focus:translate-y-[2px] placeholder:opacity-20"
           {...register("login", { required: true })}

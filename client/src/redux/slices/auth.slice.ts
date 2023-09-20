@@ -3,7 +3,7 @@ import axios from "../../axios";
 import { RootState } from "../store";
 
 export interface Idata {
-  username: string;
+  username?: string;
   login: string;
   password: string;
 }
@@ -17,8 +17,18 @@ export const createUser = createAsyncThunk(
   },
 );
 
+export const loginUser = createAsyncThunk(
+  "auth/login",
+  async (userData: Idata) => {
+    console.log("userData", userData);
+    const { data } = await axios.post("/auth/login", userData);
+
+    return data;
+  },
+);
+
 export const fetchMe = createAsyncThunk("auth/fetchAuthMe", async () => {
-  const data = await axios.get("/auth/me");
+  const { data } = await axios.get("/auth/me");
 
   return data;
 });
@@ -41,6 +51,28 @@ const authSlice = createSlice({
       state.status = "failed";
     });
     builder.addCase(createUser.pending, state => {
+      state.status = "loading";
+    });
+
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      state.data = action.payload;
+      state.status = "success";
+    });
+    builder.addCase(loginUser.rejected, state => {
+      state.status = "failed";
+    });
+    builder.addCase(loginUser.pending, state => {
+      state.status = "loading";
+    });
+
+    builder.addCase(fetchMe.fulfilled, (state, action) => {
+      state.data = action.payload;
+      state.status = "success";
+    });
+    builder.addCase(fetchMe.rejected, state => {
+      state.status = "failed";
+    });
+    builder.addCase(fetchMe.pending, state => {
       state.status = "loading";
     });
   },
