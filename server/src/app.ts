@@ -4,12 +4,17 @@ import { connect } from "mongoose";
 import "dotenv/config";
 import auth from "./routes/auth";
 import post from "./routes/post";
+import authMiddleware from "./utils/authChecker";
+import multer from "multer";
+import path from "path";
+import uploadMiddleware from "./multer";
 
 const app = express();
 const PORT: number = Number(process.env.PORT) || 9999;
 
 app.use(express.json());
 app.use(cors());
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 connect(
   `mongodb+srv://${process.env.DB_NAME}:${process.env.DB_PASSWORD}@${process.env.DB_CLASTER_NAME}.lghnr7n.mongodb.net/ExpressBlog?retryWrites=true&w=majority`,
@@ -21,6 +26,20 @@ connect(
 
 app.use("/auth/", auth);
 app.use("/posts/", post);
+
+app.post("/upload", authMiddleware, uploadMiddleware, (req, res) => {
+  try {
+    if (req && req.file && req.file.originalname) {
+      res.json({
+        url: `/images/${req.file.originalname}`,
+      });
+    } else {
+      res.status(400).json({ error: "Bad Request" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 app
   .listen(PORT, () => {
