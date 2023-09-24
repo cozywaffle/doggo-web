@@ -5,7 +5,6 @@ import "dotenv/config";
 import auth from "./routes/auth";
 import post from "./routes/post";
 import authMiddleware from "./utils/authChecker";
-import multer from "multer";
 import path from "path";
 import uploadMiddleware from "./multer";
 
@@ -31,7 +30,7 @@ app.post("/upload", authMiddleware, uploadMiddleware, (req, res) => {
   try {
     if (req && req.file && req.file.originalname) {
       res.json({
-        url: `/images/${req.file.originalname}`,
+        url: `/images/${req.file.filename}`,
       });
     } else {
       res.status(400).json({ error: "Bad Request" });

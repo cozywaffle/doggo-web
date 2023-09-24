@@ -5,6 +5,6 @@ export const postValidator = [
   body("text", "Your Text must contain minimum 1 character!").isLength({
     min: 1,
   }),
-  body("tags").optional().isArray(),
-  body("imageUrl").optional().isURL(),
+  body("tags").optional().isLength({ min: 1 }),
+  body("imageUrl").optional(),
 ];
