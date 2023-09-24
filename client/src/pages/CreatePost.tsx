@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 interface IData {
   image?: File[];
   title: string;
-  tags?: string;
+  tags?: string[] | string;
   text: string;
 }
 
@@ -31,8 +31,8 @@ const CreatePost: FC = () => {
   };
 
   const onSubmit = async (data: IData) => {
-    if (data.tags) {
-      data.tags.split(",");
+    if (typeof data.tags === "string") {
+      data.tags = data.tags.split(", ");
     }
 
     const fields = {
