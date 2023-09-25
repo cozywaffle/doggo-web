@@ -2,6 +2,7 @@ import { FC } from "react";
 import emptyPFP from "../assets/empty-pfp.png";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import { Link } from "react-router-dom";
 
 const Profile: FC = () => {
   const data = useSelector((state: RootState) => state.auth.data);
@@ -33,9 +34,11 @@ const Profile: FC = () => {
               {data?.userData.login}
             </h2>
           </div>
-          <button className="flex w-full justify-center p-2 transition-all rounded-md border-solid border border-white hover:text-black hover:bg-white hover:rounded-sm active:translate-y-[2px]">
+          <Link
+            to="/me/edit"
+            className="flex w-full justify-center p-2 transition-all rounded-md border-solid border border-white hover:text-black hover:bg-white hover:rounded-sm active:translate-y-[2px]">
             Edit profile
-          </button>
+          </Link>
         </div>
       </div>
       <div>

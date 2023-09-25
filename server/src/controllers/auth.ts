@@ -115,7 +115,11 @@ export const changeOne = async (req: CustomRequest, res: Response) => {
   try {
     await UserModel.findOneAndUpdate(
       { _id: req.body._id },
-      { avatarUrl: req.body.avatarUrl },
+      {
+        username: req.body.username,
+        login: req.body.login,
+        avatarUrl: req.body.avatarUrl,
+      },
     )
       .then(data => {
         res.json({ data });
