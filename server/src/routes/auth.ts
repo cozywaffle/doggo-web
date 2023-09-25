@@ -19,4 +19,6 @@ router.post("/login", loginValidation, validErrHandler, authController.login);
 
 router.get("/me", checkAuth, authController.getOne);
 
+router.patch("/me", checkAuth, authController.changeOne);
+
 export default router;

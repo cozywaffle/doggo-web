@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../../axios";
 import { RootState } from "../store";
 
-export interface Idata {
+export interface IReqData {
   username?: string;
   login: string;
   password: string;
@@ -10,7 +10,7 @@ export interface Idata {
 
 export const createUser = createAsyncThunk(
   "auth/createUser",
-  async (userData: Idata) => {
+  async (userData: IReqData) => {
     const { data } = await axios.post("/auth/reg", userData);
 
     return data;
@@ -19,7 +19,7 @@ export const createUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   "auth/login",
-  async (userData: Idata) => {
+  async (userData: IReqData) => {
     console.log("userData", userData);
     const { data } = await axios.post("/auth/login", userData);
 
@@ -30,10 +30,46 @@ export const loginUser = createAsyncThunk(
 export const fetchMe = createAsyncThunk("auth/fetchAuthMe", async () => {
   const { data } = await axios.get("/auth/me");
 
+  console.log(data);
+
   return data;
 });
 
-const initialState = {
+interface IUser {
+  avatarUrl: string;
+  createdAt: string;
+  login: string;
+  passwordHash: string;
+  updatedAt: string;
+  username: string;
+  __v: number;
+  _id: string;
+}
+
+interface IPost {
+  createdAt: string;
+  imageUrl: string;
+  tags: string[];
+  text: string;
+  title: string;
+  updatedAt: string;
+  user: IUser;
+  viewsCount: number;
+  __v: number;
+  _id: string;
+}
+
+interface IData {
+  userData: IUser;
+  posts: IPost[];
+}
+
+interface IinitialState {
+  data: null | IData;
+  status: string;
+}
+
+const initialState: IinitialState = {
   data: null,
   status: "idle",
 };

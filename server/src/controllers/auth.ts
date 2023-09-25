@@ -110,3 +110,22 @@ export const getOne = async (req: CustomRequest, res: Response) => {
     return res.status(500).json({ message: "Access denied." });
   }
 };
+
+export const changeOne = async (req: CustomRequest, res: Response) => {
+  try {
+    await UserModel.findOneAndUpdate(
+      { _id: req.body._id },
+      { avatarUrl: req.body.avatarUrl },
+    )
+      .then(data => {
+        res.json({ data });
+      })
+      .catch((err: Error) => {
+        res.status(400).json({ message: "Couldn't update profile picture!" });
+        console.log(err);
+      });
+  } catch (err) {
+    res.status(500).json({ message: "Iternal server error!" });
+    console.log(err);
+  }
+};
