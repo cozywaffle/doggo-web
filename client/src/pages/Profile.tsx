@@ -3,6 +3,7 @@ import emptyPFP from "../assets/empty-pfp.png";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { Link } from "react-router-dom";
+import Post from "../components/Post";
 
 const Profile: FC = () => {
   const data = useSelector((state: RootState) => state.auth.data);
@@ -45,34 +46,18 @@ const Profile: FC = () => {
         <div className="flex flex-col space-y-4">
           {data?.posts &&
             data?.posts.map((post, index) => (
-              <div
-                key={post._id + index}
-                className="flex flex-col justify-center items-center p-2 rounded-2xl shadow-2xl space-x-2 transition-all cursor-pointer hover:shadow-pink-300 hover:shadow-xl">
-                {post.imageUrl && (
-                  <div className="w-[550px] h-[450px] flex items-center justify-center">
-                    <img
-                      src={post.imageUrl}
-                      alt=""
-                      className="h-full w-full object-cover rounded-lg"
-                    />
-                  </div>
-                )}
-                <div className="flex items-center justify-between w-full text-sm font-thin p-1 opacity-50">
-                  <h1>@{data.userData.username}</h1>
-                  <h5 className="flex w-[50%] font-thin opacity-50 text-sm truncate">
-                    {post.tags.map((tag: string, index) => (
-                      <p key={tag + index} className="p-1">
-                        #{tag}
-                      </p>
-                    ))}
-                  </h5>
-                  <h2>{post.updatedAt.replace("T", " ").replace(".", " ")}</h2>
-                </div>
-                <h1 className="text-lg font-bold p-1">{post.title}</h1>
-                <p className="truncate w-[500px] text-md font-normal p-1">
-                  {post.text}
-                </p>
-              </div>
+              <Post
+                props={{
+                  imageUrl: post.imageUrl,
+                  username: data.userData.username,
+                  tags: post.tags,
+                  userId: data.userData._id,
+                  postIndex: index,
+                  updatedAt: post.updatedAt,
+                  title: post.title,
+                  text: post.text,
+                }}
+              />
             ))}
         </div>
       </div>
