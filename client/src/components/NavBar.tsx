@@ -5,14 +5,19 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { useSelector } from "react-redux";
 import { selectIsAuth } from "../redux/slices/auth.slice";
-import { IoIosCreate } from "react-icons/io";
+import { BiMessageAltAdd } from "react-icons/bi";
+import { RootState } from "../redux/store";
 
 const NavBar: FC = () => {
   const isAuth = useSelector(selectIsAuth);
 
+  const data = useSelector((state: RootState) => state.auth.data);
+
+  console.log(data?.userData.avatarUrl);
+
   return (
     <header className="flex justify-between py-2">
-      <Link to="/" className="text-2xl font-extrabold text-white">
+      <Link to="/posts" className="text-2xl font-extrabold text-white">
         Doggo.WEB
       </Link>
       <div className="flex px-2 bg-zinc-800 rounded-lg items-center justify-center gap-x-2 text-xl">
@@ -28,16 +33,31 @@ const NavBar: FC = () => {
           <>
             <Link
               to="/create"
-              className="flex justify-center items-center text-lg font-thin bg-zinc-800 px-1 py-1 rounded-md">
-              <IoIosCreate />
-              <p>Add</p>
+              className="flex justify-center items-center gap-1 bg-neutral-800 px-1 py-1 rounded-md transition-all hover:bg-neutral-700  active:translate-y-[1px]">
+              <BiMessageAltAdd />
+              <p className="text-md font-normal">Add</p>
             </Link>
-            <Link
-              to="/me"
-              className="flex items-center gap-x-1 text-xl font-thin">
-              <h3>Profile</h3>
-              <CgProfile />
-            </Link>
+            {isAuth ? (
+              <Link
+                to="/me"
+                className="flex items-center gap-x-2 text-xl font-thin">
+                <h3 className="text-sm font-thin opacity-50">
+                  @{data?.userData.username}
+                </h3>
+                <img
+                  src={data?.userData.avatarUrl}
+                  alt="profile picture"
+                  className="w-[40px] h-[40px] rounded-full"
+                />
+              </Link>
+            ) : (
+              <Link
+                to="/me"
+                className="flex items-center gap-x-1 text-xl font-thin">
+                <h3>Profile</h3>
+                <CgProfile />
+              </Link>
+            )}
           </>
         ) : (
           <Link to="/login" className="flex items-center gap-x-1 text-lg">

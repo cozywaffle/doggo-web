@@ -14,6 +14,8 @@ interface IDBData {
   text: string;
   updatedAt: string;
   user: Iuser;
+  _id: string;
+  viewsCount: number;
 }
 
 const Home: FC = () => {
@@ -26,8 +28,6 @@ const Home: FC = () => {
   };
 
   useMemo(fetchPosts, []);
-
-  console.log(posts);
 
   return (
     <section className="flex flex-col justify-center items-center p-4 space-y-6">
@@ -43,6 +43,8 @@ const Home: FC = () => {
               updatedAt: post.updatedAt,
               title: post.title,
               text: post.text,
+              postId: post._id,
+              viewsCount: post.viewsCount,
             }}
           />
         ))

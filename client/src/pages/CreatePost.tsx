@@ -56,7 +56,7 @@ const CreatePost: FC = () => {
   };
 
   if (status === 200) {
-    return <Navigate to="/" />;
+    return <Navigate to="/posts" />;
   }
 
   return (
