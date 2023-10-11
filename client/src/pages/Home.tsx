@@ -1,25 +1,10 @@
 import { FC, useMemo, useState } from "react";
-import axios from "../axios";
+import axios from "../utils/axios";
 import Post from "../components/Post";
-
-interface Iuser {
-  username: string;
-  _id: string;
-}
-
-interface IDBData {
-  imageUrl: string;
-  title: string;
-  tags: string[];
-  text: string;
-  updatedAt: string;
-  user: Iuser;
-  _id: string;
-  viewsCount: number;
-}
+import { IPost } from "../redux/slices/types";
 
 const Home: FC = () => {
-  const [posts, setPosts] = useState<IDBData[]>();
+  const [posts, setPosts] = useState<IPost[]>();
 
   const fetchPosts = async () => {
     const { data } = await axios.get("/posts");

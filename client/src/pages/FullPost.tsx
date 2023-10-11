@@ -1,24 +1,12 @@
-import axios from "../axios";
+import axios from "../utils/axios";
 import { FC, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BsEye } from "react-icons/bs";
+import { IPost } from "../redux/slices/types";
 
-interface Iuser {
-  username: string;
-  _id: string;
-}
-
-type post = {
-  imageUrl?: string;
-  username: string;
-  tags: string[];
-  user: Iuser;
+interface post extends IPost {
   postIndex: number;
-  updatedAt: string;
-  title: string;
-  text: string;
-  viewsCount: number;
-};
+}
 
 const FullPost: FC = () => {
   const routeParams = useParams();

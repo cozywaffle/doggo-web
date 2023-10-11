@@ -5,7 +5,7 @@ import { RootState } from "../redux/store";
 import { Link } from "react-router-dom";
 import Post from "../components/Post";
 import { MdDeleteForever } from "react-icons/md";
-import axios from "../axios";
+import axios from "../utils/axios";
 
 const Profile: FC = () => {
   const data = useSelector((state: RootState) => state.auth.data);

@@ -4,10 +4,7 @@ import UserModel from "../models/User/User";
 import PostModel from "../models/Post/Post";
 import jwt, { Secret } from "jsonwebtoken";
 import bcrypt from "bcrypt";
-
-interface CustomRequest extends Request {
-  userId?: string;
-}
+import * as types from "./types";
 
 export const createOne = async (req: Request, res: Response) => {
   try {
@@ -89,7 +86,7 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
-export const getOne = async (req: CustomRequest, res: Response) => {
+export const getOne = async (req: types.CustomRequest, res: Response) => {
   try {
     const user = await UserModel.findById(req.userId);
 
@@ -111,7 +108,7 @@ export const getOne = async (req: CustomRequest, res: Response) => {
   }
 };
 
-export const changeOne = async (req: CustomRequest, res: Response) => {
+export const changeOne = async (req: types.CustomRequest, res: Response) => {
   try {
     await UserModel.findOneAndUpdate(
       { _id: req.body._id },

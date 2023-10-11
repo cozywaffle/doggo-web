@@ -1,7 +1,7 @@
 import { FC } from "react";
 import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
-import { Route, Routes, Navigate } from "react-router";
+import { Route, Routes } from "react-router";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
