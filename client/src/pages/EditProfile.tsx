@@ -86,14 +86,14 @@ const EditProfile: FC = () => {
         className="p-8 flex flex-col justify-center items-center space-y-4">
         {data?.userData.avatarUrl ? (
           <img
-            className="w-[400px] h-[400px] rounded-full bg-cover cursor-pointer"
+            className="w-[400px] h-[400px] rounded-full bg-cover cursor-pointer transition-all hover:opacity-80"
             src={avatarUrl || data?.userData.avatarUrl}
             alt="profile picture"
             onClick={() => inputFileRef.current.click()}
           />
         ) : (
           <img
-            className="w-[300px] h-[300px] rounded-full bg-cover cursor-pointer"
+            className="w-[300px] h-[300px] rounded-full bg-cover cursor-pointer transition-all hover:opacity-80"
             src={avatarUrl || emptyPFP}
             alt="profile picture"
             onClick={() => inputFileRef.current.click()}

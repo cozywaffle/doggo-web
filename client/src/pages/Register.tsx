@@ -25,7 +25,7 @@ const Register: FC = () => {
   };
 
   if (isAuth) {
-    return <Navigate to="/" />;
+    return <Navigate to="/posts" />;
   }
 
   return (

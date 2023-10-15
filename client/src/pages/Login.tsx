@@ -24,7 +24,7 @@ const Login: FC = () => {
   };
 
   if (isAuth) {
-    return <Navigate to="/" />;
+    return <Navigate to="/posts" />;
   }
 
   return (

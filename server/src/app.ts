@@ -6,7 +6,7 @@ import auth from "./routes/auth";
 import post from "./routes/post";
 import authMiddleware from "./utils/authChecker";
 import path from "path";
-import uploadMiddleware from "./utils/multer";
+import uploadMiddleware from "./multer";
 
 const app = express();
 const PORT: number = Number(process.env.PORT) || 9999;

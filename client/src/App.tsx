@@ -1,7 +1,8 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
 import { Route, Routes } from "react-router";
+import { useNavigate } from "react-router-dom";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -15,10 +16,13 @@ import FullPost from "./pages/FullPost";
 
 const App: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchMe());
   }, []);
+
+  useMemo(() => navigate("/posts"), []);
 
   return (
     <>

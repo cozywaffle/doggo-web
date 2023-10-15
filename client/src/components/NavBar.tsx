@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { selectIsAuth } from "../redux/slices/auth.slice";
 import { BiMessageAltAdd } from "react-icons/bi";
 import { RootState } from "../redux/store";
+import emptyAvatar from "../assets/empty-pfp.png";
 
 const NavBar: FC = () => {
   const isAuth = useSelector(selectIsAuth);
@@ -45,7 +46,11 @@ const NavBar: FC = () => {
                   @{data?.userData.username}
                 </h3>
                 <img
-                  src={data?.userData.avatarUrl}
+                  src={
+                    data?.userData.avatarUrl
+                      ? data.userData.avatarUrl
+                      : emptyAvatar
+                  }
                   alt="profile picture"
                   className="w-[40px] h-[40px] rounded-full"
                 />
